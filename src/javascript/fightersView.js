@@ -26,7 +26,7 @@ class FightersView extends View {
 
   handleFighterClick(event, fighter) {
     this.fightersDetailsMap.set(fighter._id, fighter);
-    console.log("clicked");
+    console.log(fighter);
     // get from map or load info and add to fightersMap
     // show modal with fighter info
     // allow to edit health and power in this modal
