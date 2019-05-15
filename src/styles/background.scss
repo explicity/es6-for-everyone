@@ -12,7 +12,7 @@
   visibility: hidden;
 }
 
-.bg-wrap {
+.main {
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
@@ -31,7 +31,7 @@
     z-index: -999;
   }
 
-  #root {
+  .bg-wrap {
     background-image: url("../../resources/images/logo.png");
     -webkit-animation: sidedownscroll 30s linear infinite;
     animation: sidedownscroll 30s linear infinite;
@@ -51,7 +51,7 @@
   }
 }
 
-#root {
+.bg-wrap {
   position: absolute;
   top: 0;
   left: 0;
@@ -60,7 +60,10 @@
   margin: 0;
   animation: slide 50s linear infinite;
   will-change: background-position;
+}
 
+#root {
+  position: relative;
 }
 
 @keyframes sidedownscroll {
