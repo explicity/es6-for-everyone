@@ -69,10 +69,23 @@ const createFighter = fighter => {
   const nameElement = createName(name);
   const imageElement = createImage(source);
   const element = createElement({ tagName: "div", className: "fighter" });
-
+  element.addEventListener(
+    "click",
+    event => handleFighterClick(event, "wrapper"),
+    false
+  );
+  imageElement.addEventListener(
+    "click",
+    event => handleFighterClick(event, "image"),
+    false
+  );
   element.append(imageElement, nameElement);
 
   return element;
+};
+
+const handleFighterClick = (event, el) => {
+  console.log(el);
 };
 
 const createFighters = fighters => {
