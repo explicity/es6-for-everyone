@@ -8,10 +8,12 @@ class App {
 
   static rootElement = document.getElementById("root");
   static loadingElement = document.getElementById("loading-overlay");
+  static mainElement = document.getElementById("main-content");
 
   async startApp() {
     try {
       App.loadingElement.style.visibility = "visible";
+      App.mainElement.style.visibility = "hidden";
 
       const fighters = await fighterService.getFighters();
       const fightersView = new FightersView(fighters);
@@ -23,6 +25,7 @@ class App {
       App.rootElement.innerText = "Failed to load data";
     } finally {
       App.loadingElement.style.visibility = "hidden";
+      App.mainElement.style.visibility = "visible";
     }
   }
 }
