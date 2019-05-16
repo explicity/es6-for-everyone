@@ -3,7 +3,7 @@ class View {
 
 	createElement({ tagName, className = "", attributes = {} }) {
 		const element = document.createElement(tagName);
-		element.classList.add(className);
+		className.split(" ").map(item => element.classList.add(item));
 		Object.keys(attributes).forEach(key =>
 			element.setAttribute(key, attributes[key])
 		);

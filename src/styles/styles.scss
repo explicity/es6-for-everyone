@@ -1,4 +1,7 @@
-@import 'background.scss';
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+
+@import "background.scss";
+@import "layout.scss";
 
 html,
 body {
@@ -38,4 +41,13 @@ h4,
 h5,
 h6 {
   margin: 0;
+}
+
+h1 {
+  font-size: 27px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: 200;
 }
