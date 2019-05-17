@@ -9,6 +9,10 @@ class FightersView extends View {
     this.handleClick = this.handleFighterClick.bind(this);
     this.createFighters(fighters);
   }
+  static healthInput = document.getElementById("health-input");
+  static attackInput = document.getElementById("attack-input");
+  static defenseInput = document.getElementById("defense-input");
+  static button = document.getElementById("submit-btn");
 
   fightersDetailsMap = new Map();
 
@@ -25,13 +29,54 @@ class FightersView extends View {
     this.element.append(...fighterElements);
   }
 
-  async handleFighterClick(event, fighter) {
-    this.fightersDetailsMap.set(fighter._id, fighter);
-    console.log(fighter);
-    const lel = await fighterService.getFighterDetails(fighter._id);
-    // get from map or load info and add to fightersMap
-    // show modal with fighter info
-    // allow to edit health and power in this modal
+  handleFighterClick(event, fighter) {
+    const fighterDetails = this.setFighterDetails(fighter);
+
+    fighterDetails.then(details => {
+      this.setModal(details);
+    });
+  }
+
+  async setFighterDetails(fighter) {
+    const id = fighter._id;
+
+    if (this.fightersDetailsMap.has(id)) {
+      return this.fightersDetailsMap.get(id);
+    }
+
+    try {
+      const details = await fighterService.getFighterDetails(id);
+      this.fightersDetailsMap.set(id, details);
+
+      return details;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  setModal(details) {
+    const { _id, health, attack, defense } = details;
+
+    FightersView.healthInput.value = health;
+    FightersView.attackInput.value = attack;
+    FightersView.defenseInput.value = defense;
+
+    FightersView.button.onclick = () => {
+      event.preventDefault();
+      this.handleChange(_id);
+    };
+  }
+
+  handleChange(id) {
+    const update = {
+      health: FightersView.healthInput.value,
+      attack: FightersView.attackInput.value,
+      defense: FightersView.defenseInput.value
+    };
+    
+    Object.keys(update).forEach(
+      key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
+    );
   }
 }
 

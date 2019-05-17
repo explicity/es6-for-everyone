@@ -11,10 +11,17 @@ class FighterView extends View {
     const { name, source } = fighter;
     const nameElement = this.createName(name);
     const imageElement = this.createImage(source);
-    const divElement = this.createElement({ tagName: "div", className: "card-body" });
+    const divElement = this.createElement({
+      tagName: "div",
+      className: "card-body"
+    });
     divElement.append(nameElement);
 
-    this.element = this.createElement({ tagName: "div", className: "fighter card text-center" });
+    this.element = this.createElement({
+      tagName: "div",
+      className: "fighter card text-center",
+      attributes: { "data-toggle": "modal", 'data-target': '#modal-wrapper' }
+    });
     this.element.append(imageElement, divElement);
     this.element.addEventListener(
       "click",

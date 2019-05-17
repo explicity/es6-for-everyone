@@ -17,7 +17,6 @@ class FighterService {
     try {
       const apiResult = await callApi(endpoint, "GET");
 
-      console.log(JSON.parse(atob(apiResult.content)));
       return JSON.parse(atob(apiResult.content));
     } catch (error) {
       throw error;
