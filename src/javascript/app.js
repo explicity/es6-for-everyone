@@ -1,4 +1,4 @@
-import FightersView from "./fightersView";
+import FightersView from "./view/fightersView";
 import { fighterService } from "./services/fightersService";
 
 class App {

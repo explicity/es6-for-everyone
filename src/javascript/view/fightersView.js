@@ -1,7 +1,7 @@
 import View from "./view";
 import FighterView from "./fighterView";
-import { fighterService } from "./services/fightersService";
-import Setup from "./setup.js";
+import { fighterService } from "../services/fightersService";
+import Setup from "../setup.js";
 
 class FightersView extends View {
   constructor(fighters) {
