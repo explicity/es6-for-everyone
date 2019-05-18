@@ -1,13 +1,16 @@
 import View from "./view";
 import FighterView from "./fighterView";
 import { fighterService } from "./services/fightersService";
+import Setup from "./setup.js";
 
 class FightersView extends View {
   constructor(fighters) {
     super();
 
     this.handleClick = this.handleFighterClick.bind(this);
+    this.handleCheckbox = this.handleFighterCheckbox.bind(this);
     this.createFighters(fighters);
+    this.setup = new Setup();
   }
   static healthInput = document.getElementById("health-input");
   static attackInput = document.getElementById("attack-input");
@@ -18,7 +21,11 @@ class FightersView extends View {
 
   createFighters(fighters) {
     const fighterElements = fighters.map(fighter => {
-      const fighterView = new FighterView(fighter, this.handleClick);
+      const fighterView = new FighterView(
+        fighter,
+        this.handleClick,
+        this.handleCheckbox
+      );
       return fighterView.element;
     });
 
@@ -34,7 +41,12 @@ class FightersView extends View {
 
     fighterDetails.then(details => {
       this.setModal(details);
+      this.setup.updateData(details);
     });
+  }
+
+  handleFighterCheckbox(event, id) {
+    this.setup.updateFighters(event, id);
   }
 
   async setFighterDetails(fighter) {
@@ -73,7 +85,7 @@ class FightersView extends View {
       attack: FightersView.attackInput.value,
       defense: FightersView.defenseInput.value
     };
-    
+
     Object.keys(update).forEach(
       key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
     );

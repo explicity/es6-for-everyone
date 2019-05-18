@@ -54,10 +54,15 @@
   align-items: center;
   justify-content: center;
   position: relative;
+}
 
-  h1 {
-    text-align: center;
-    color: #fff;
+.header {
+  text-align: center;
+  color: #fff;
+
+  .sub-title {
+    color: lavender;
+    font-size: 18px;
   }
 }
 

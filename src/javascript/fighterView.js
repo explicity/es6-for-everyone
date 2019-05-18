@@ -1,16 +1,18 @@
 import View from "./view";
 
 class FighterView extends View {
-  constructor(fighter, handleClick) {
+  constructor(fighter, handleClick, handleCheckbox) {
     super();
 
-    this.createFighter(fighter, handleClick);
+    this.createFighter(fighter, handleClick, handleCheckbox);
   }
 
-  createFighter(fighter, handleClick) {
-    const { name, source } = fighter;
+  createFighter(fighter, handleClick, handleCheckbox) {
+    const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
     const imageElement = this.createImage(source);
+    const checkboxElement = this.createCheckbox(_id, handleCheckbox);
+
     const divElement = this.createElement({
       tagName: "div",
       className: "card-body"
@@ -19,10 +21,10 @@ class FighterView extends View {
 
     this.element = this.createElement({
       tagName: "div",
-      className: "fighter card text-center",
-      attributes: { "data-toggle": "modal", 'data-target': '#modal-wrapper' }
+      className: "fighter card text-center"
     });
-    this.element.append(imageElement, divElement);
+
+    this.element.append(imageElement, divElement, checkboxElement);
     this.element.addEventListener(
       "click",
       event => handleClick(event, fighter),
@@ -41,7 +43,11 @@ class FighterView extends View {
   }
 
   createImage(source) {
-    const attributes = { src: source };
+    const attributes = {
+      src: source,
+      "data-toggle": "modal",
+      "data-target": "#modal-wrapper"
+    };
     const imgElement = this.createElement({
       tagName: "img",
       className: "fighter-image card-img-top",
@@ -49,6 +55,32 @@ class FighterView extends View {
     });
 
     return imgElement;
+  }
+
+  createCheckbox(id, handleCheckbox) {
+    const checkboxWrapper = this.createElement({
+      tagName: "div",
+      className: "form-check"
+    });
+
+    const checkboxElement = this.createElement({
+      tagName: "input",
+      className: "form-check-input",
+      attributes: { type: "checkbox", id: `checkbox-${id}`, value: "" }
+    });
+
+    const checkboxLabel = this.createElement({
+      tagName: "label",
+      className: "form-check-label",
+      attributes: { for: `checkbox-${id}` }
+    });
+
+    checkboxElement.addEventListener("change", (e) => handleCheckbox(e.target.checked, id))
+
+    checkboxLabel.innerText = "Choose me!";
+    checkboxWrapper.append(checkboxElement, checkboxLabel);
+
+    return checkboxWrapper;
   }
 }
 
