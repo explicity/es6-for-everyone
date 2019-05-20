@@ -52,6 +52,7 @@ class Setup {
 
     Setup.button.onclick = () => {
       this.setupFight();
+      Setup.button.disabled = true;
     };
   }
 }
