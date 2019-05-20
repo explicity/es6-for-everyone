@@ -23,7 +23,8 @@ export function fight(fighters) {
 
     const btn = view.createElement({
       tagName: "button",
-      className: "btn btn-secondary"
+      className: "btn btn-secondary",
+      attributes: { id: `button-${fighter._id}` }
     });
 
     btn.innerText = "Attack!";
@@ -41,12 +42,10 @@ export function fight(fighters) {
   });
 
   fightElement.append(...fighterElements);
-
-  console.log(firstFighter, secondFighter);
 }
 
 class Commands {
-  static updateHealth(fighter) {
+  static updateIndicator(fighter) {
     let comment = `Health: ${fighter.health}`;
     const label = document.getElementById(`fighter-${fighter.id}`);
     if (fighter.health <= 0) {
@@ -56,9 +55,27 @@ class Commands {
   }
 
   static newTurn(attackingCharacter, attackedCharacter) {
-    attackingCharacter.attackOpponent(attackedCharacter);
-    console.log(attackingCharacter, attackedCharacter);
+    let view = new View();
 
-    this.updateHealth(attackedCharacter);
+    attackingCharacter.attackOpponent(attackedCharacter);
+
+    this.updateIndicator(attackedCharacter);
+    if (attackedCharacter.health <= 0) {
+      const message = view.createElement({
+        tagName: "div",
+        className: "result-message"
+      });
+      message.innerText = `${attackingCharacter.name} wins!`;
+      fightElement.append(message);
+
+      const firstButton = document.getElementById(
+        `button-${attackingCharacter.id}`
+      );
+      const secondButton = document.getElementById(
+        `button-${attackedCharacter.id}`
+      );
+      firstButton.disabled = true;
+      secondButton.disabled = true;
+    }
   }
 }

@@ -12,10 +12,26 @@
   background: url("../../resources/images/fightbg.gif") no-repeat;
   background-size: cover;
 
-  .fighter:last-child {
+  .fighter:nth-child(2 ) {
     .fighter-image {
       -webkit-transform: scaleX(-1);
       transform: scaleX(-1);
     }
+  }
+
+  .health-indicator {
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    font-size: 13px;
+  }
+
+  .result-message {
+    position: absolute;
+    padding: 15px;
+    background-color: wheat;
+    border: 1px solid wheat;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 }

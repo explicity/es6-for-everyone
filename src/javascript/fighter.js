@@ -16,9 +16,7 @@ class Fighter {
   attackOpponent(opponent) {
     if (opponent.isAlive && this.isAlive) {
       const damageDone = this.getHitPower();
-      console.log(damageDone);
       const damageBlocked = opponent.getBlockPower();
-      console.log(damageBlocked);
 
       if (damageDone - damageBlocked > 0) {
         opponent.receiveDamage(damageDone - damageBlocked);
