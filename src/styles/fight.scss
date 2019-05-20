@@ -1,5 +1,21 @@
 .fight {
-	&-btn {
-		text-transform: uppercase;
-	}
+  &-btn {
+    text-transform: uppercase;
+  }
+  
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 355px;
+  width: 100%;
+  background: url("../../resources/images/fightbg.gif") no-repeat;
+  background-size: cover;
+
+  .fighter:last-child {
+    .fighter-image {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
 }

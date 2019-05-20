@@ -12,15 +12,20 @@
     <main class="main">
       <div class="bg-wrap">
         <div class="wrapper" id="main-content">
-          <header class="header mb-3">
+          <header class="header mb-3 mt-3">
             <h1 class="title" id="main-title">Choose your fighters</h1>
             <h3 class="title sub-title">
               Click on the image to get details about each fighter
             </h3>
           </header>
           <div id="root"></div>
-          <button class="btn btn-secondary mb-3" id="fight-btn" disabled="true">Fight!</button>
-          <div class="fight" style="opacity: 0"></div>
+          <button class="btn btn-secondary mb-4" id="fight-btn" disabled="true">
+            Fight!
+          </button>
+          <div class="container mb-3">
+            <div class="fight" style="opacity: 0" id="fight-wrapper">
+            </div>
+          </div>
         </div>
       </div>
     </main>

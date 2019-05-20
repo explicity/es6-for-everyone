@@ -1,5 +1,6 @@
 import Fighter from "./fighter.js";
 import { fighterService } from "./services/fightersService";
+import { fight } from './fight.js';
 
 class Setup {
   constructor() {
@@ -21,6 +22,8 @@ class Setup {
         }
       }
     }
+
+    fight(fighters);
   }
 
   updateData(details) {

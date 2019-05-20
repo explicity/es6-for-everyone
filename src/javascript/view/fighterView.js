@@ -1,17 +1,16 @@
 import View from "./view";
 
 class FighterView extends View {
-  constructor(fighter, handleClick, handleCheckbox) {
+  constructor(fighter, isFighting = false, handleClick, handleCheckbox) {
     super();
 
-    this.createFighter(fighter, handleClick, handleCheckbox);
+    this.createFighter(fighter, isFighting, handleClick, handleCheckbox);
   }
 
-  createFighter(fighter, handleClick, handleCheckbox) {
+  createFighter(fighter, isFighting, handleClick, handleCheckbox) {
     const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
-    const imageElement = this.createImage(source);
-    const checkboxElement = this.createCheckbox(_id, handleCheckbox);
+    const imageElement = this.createImage(source, isFighting);
 
     const divElement = this.createElement({
       tagName: "div",
@@ -24,12 +23,17 @@ class FighterView extends View {
       className: "fighter card text-center"
     });
 
-    this.element.append(imageElement, divElement, checkboxElement);
-    this.element.addEventListener(
-      "click",
-      event => handleClick(event, fighter),
-      false
-    );
+    this.element.append(imageElement, divElement);
+
+    if (!isFighting) {
+      const checkboxElement = this.createCheckbox(_id, handleCheckbox);
+      this.element.append(checkboxElement);
+      this.element.addEventListener(
+        "click",
+        event => handleClick(event, fighter),
+        false
+      );
+    }
   }
 
   createName(name) {
@@ -42,12 +46,19 @@ class FighterView extends View {
     return nameElement;
   }
 
-  createImage(source) {
-    const attributes = {
-      src: source,
-      "data-toggle": "modal",
-      "data-target": "#modal-wrapper"
+  createImage(source, isFighting) {
+    let attributes = {
+      src: source
     };
+
+    if (!isFighting) {
+      attributes = {
+        ...attributes,
+        "data-toggle": "modal",
+        "data-target": "#modal-wrapper"
+      };
+    }
+
     const imgElement = this.createElement({
       tagName: "img",
       className: "fighter-image card-img-top",
@@ -75,7 +86,9 @@ class FighterView extends View {
       attributes: { for: `checkbox-${id}` }
     });
 
-    checkboxElement.addEventListener("change", (e) => handleCheckbox(e.target.checked, id))
+    checkboxElement.addEventListener("change", e =>
+      handleCheckbox(e.target.checked, id)
+    );
 
     checkboxLabel.innerText = "Choose me!";
     checkboxWrapper.append(checkboxElement, checkboxLabel);

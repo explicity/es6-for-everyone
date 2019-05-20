@@ -23,6 +23,7 @@ class FightersView extends View {
     const fighterElements = fighters.map(fighter => {
       const fighterView = new FighterView(
         fighter,
+        false,
         this.handleClick,
         this.handleCheckbox
       );
