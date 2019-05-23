@@ -1,6 +1,6 @@
 import Fighter from "./fighter.js";
 import { fighterService } from "./services/fightersService";
-import { fight } from './fight.js';
+import { fight } from "./fight.js";
 
 class Setup {
   constructor() {
@@ -30,6 +30,7 @@ class Setup {
     let temp;
 
     for (let fighter of this.allFighters.values()) {
+      console.log(fighter);
       if (details._id == fighter._id) {
         temp = fighter;
       }

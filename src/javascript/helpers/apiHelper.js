@@ -1,10 +1,11 @@
-const API_URL =
-  "https://api.github.com/repos/binary-studio-academy/stage-2-es6-for-everyone/contents/resources/api/";
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const API_URL = "https://bsa19-nodejs.herokuapp.com";
 
-function callApi(endpoind, method) {
-  const url = API_URL + endpoind;
+function callApi(endpoind, method, data) {
+  const url = proxyurl + API_URL + endpoind;
   const options = {
-    method
+    method,
+    data: JSON.stringify(data)
   };
 
   return fetch(url, options)

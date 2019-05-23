@@ -39,10 +39,13 @@ class FightersView extends View {
 
   handleFighterClick(event, fighter) {
     const fighterDetails = this.setFighterDetails(fighter);
+    const { target } = event;
 
     fighterDetails.then(details => {
-      this.setModal(details);
-      this.setup.updateData(details);
+      if (target.tagName === "IMG") {
+        this.setModal(details);
+        this.setup.updateData(details);
+      }
     });
   }
 
@@ -59,33 +62,40 @@ class FightersView extends View {
 
     try {
       const details = await fighterService.getFighterDetails(id);
-      this.fightersDetailsMap.set(id, details);
+      this.fightersDetailsMap.set(id, details[0]);
 
-      return details;
+      return details[0];
     } catch (error) {
       throw error;
     }
   }
 
   setModal(details) {
-    const { _id, health, attack, defense } = details;
-
-    FightersView.healthInput.value = health;
-    FightersView.attackInput.value = attack;
-    FightersView.defenseInput.value = defense;
+    FightersView.healthInput.value = details.health;
+    FightersView.attackInput.value = details.attack;
+    FightersView.defenseInput.value = details.defense;
 
     FightersView.button.onclick = () => {
       event.preventDefault();
-      this.handleChange(_id);
+      this.handleChange(details._id);
     };
   }
 
-  handleChange(id) {
+  async handleChange(id) {
     const update = {
       health: FightersView.healthInput.value,
       attack: FightersView.attackInput.value,
       defense: FightersView.defenseInput.value
     };
+
+    try {
+      const update = await fighterService.putFighterDetails(
+        this.fightersDetailsMap.get(id)
+      );
+      return update;
+    } catch (error) {
+      throw error;
+    }
 
     Object.keys(update).forEach(
       key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
