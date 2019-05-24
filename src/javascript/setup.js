@@ -16,7 +16,6 @@ class Setup {
     for (let fighter of this.checked) {
       for (let details of this.allFighters.values()) {
         const { _id } = details;
-
         if (fighter === _id) {
           fighters.push(details);
         }
@@ -30,7 +29,6 @@ class Setup {
     let temp;
 
     for (let fighter of this.allFighters.values()) {
-      console.log(fighter);
       if (details._id == fighter._id) {
         temp = fighter;
       }

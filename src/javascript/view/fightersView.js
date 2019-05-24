@@ -44,8 +44,8 @@ class FightersView extends View {
     fighterDetails.then(details => {
       if (target.tagName === "IMG") {
         this.setModal(details);
-        this.setup.updateData(details);
       }
+      this.setup.updateData(details);
     });
   }
 
@@ -88,6 +88,10 @@ class FightersView extends View {
       defense: FightersView.defenseInput.value
     };
 
+    Object.keys(update).forEach(
+      key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
+    );
+
     try {
       const update = await fighterService.putFighterDetails(
         this.fightersDetailsMap.get(id)
@@ -96,10 +100,6 @@ class FightersView extends View {
     } catch (error) {
       throw error;
     }
-
-    Object.keys(update).forEach(
-      key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
-    );
   }
 }
 

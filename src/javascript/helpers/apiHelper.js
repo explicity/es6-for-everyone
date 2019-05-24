@@ -5,7 +5,10 @@ function callApi(endpoind, method, data) {
   const url = proxyurl + API_URL + endpoind;
   const options = {
     method,
-    data: JSON.stringify(data)
+    body: JSON.stringify(data),
+    headers: new Headers({
+      "Content-Type": "application/json"
+    })
   };
 
   return fetch(url, options)

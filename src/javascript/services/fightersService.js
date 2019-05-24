@@ -16,8 +16,9 @@ class FighterService {
   async putFighterDetails(fighter) {
     try {
       const endpoint = `/user/${fighter._id}`;
-
       const putResult = await callApi(endpoint, "PUT", fighter);
+
+      return putResult.fighter;
     } catch (error) {
       throw error;
     }
