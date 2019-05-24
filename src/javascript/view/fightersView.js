@@ -16,6 +16,7 @@ class FightersView extends View {
   static attackInput = document.getElementById("attack-input");
   static defenseInput = document.getElementById("defense-input");
   static button = document.getElementById("submit-btn");
+  static deleteButton = document.getElementById("delete-fighter");
 
   fightersDetailsMap = new Map();
 
@@ -79,6 +80,19 @@ class FightersView extends View {
       event.preventDefault();
       this.handleChange(details._id);
     };
+
+    FightersView.deleteButton.onclick = () => {
+      event.preventDefault();
+      this.deleteFighter(details._id);
+    };
+  }
+
+  async deleteFighter(id) {
+    try {
+      return await fighterService.deleteFighter(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async handleChange(id) {

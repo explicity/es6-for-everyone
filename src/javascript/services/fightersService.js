@@ -4,29 +4,34 @@ class FighterService {
   async getFighters() {
     const endpoint = "/user";
 
-    return await this.getCallApi(endpoint);
+    return await this.getCallApi(endpoint, "GET");
   }
 
   async getFighterDetails(_id) {
     const endpoint = `/user/${_id}`;
 
-    return await this.getCallApi(endpoint);
+    return await this.getCallApi(endpoint, "GET");
   }
 
   async putFighterDetails(fighter) {
-    try {
-      const endpoint = `/user/${fighter._id}`;
-      const putResult = await callApi(endpoint, "PUT", fighter);
+    const endpoint = `/user/${fighter._id}`;
 
-      return putResult.fighter;
-    } catch (error) {
-      throw error;
-    }
+    return await callApi(endpoint, "PUT", fighter);
   }
 
-  async getCallApi(endpoint) {
+  async deleteFighter(id) {
+    const endpoint = `/user/${id}`;
+
+    return await this.getCallApi(endpoint, "DELETE");
+  }
+
+  async getCallApi(endpoint, method, data) {
     try {
-      const apiResult = await callApi(endpoint, "GET");
+      const apiResult = await callApi(endpoint, method, data);
+      if (method === "DELETE") {
+        location.reload(true);
+      }
+
       return apiResult;
     } catch (error) {
       throw error;
