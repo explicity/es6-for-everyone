@@ -1,6 +1,6 @@
-import Fighter from "./fighter.js";
-import FighterView from "./view/fighterView.js";
-import View from "./view/view.js";
+import Fighter from "./fighter.ts";
+import FighterView from "./view/fighterView.ts";
+import View from "./view/view.ts";
 
 const fightElement = document.getElementById("fight-wrapper");
 

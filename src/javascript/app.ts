@@ -1,10 +1,9 @@
-import FightersView from "./view/fightersView";
-import { fighterService } from "./services/fightersService";
+import FightersView from "./view/fightersView.ts";
+import { fighterService } from "./services/fightersService.ts";
 
 class App {
   constructor() {
     this.startApp();
-
   }
 
   static rootElement = document.getElementById("root");

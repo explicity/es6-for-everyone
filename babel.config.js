@@ -1,4 +1,5 @@
 const presets = [
+  "@babel/typescript",
   [
     "@babel/preset-env",
     {

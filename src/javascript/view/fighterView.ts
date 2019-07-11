@@ -1,4 +1,4 @@
-import View from "./view";
+import View from "./view.ts";
 
 class FighterView extends View {
   constructor(fighter, isFighting = false, handleClick, handleCheckbox) {

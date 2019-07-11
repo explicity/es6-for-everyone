@@ -1,6 +1,6 @@
-import Fighter from "./fighter.js";
-import { fighterService } from "./services/fightersService";
-import { fight } from './fight.js';
+import Fighter from "./fighter.ts";
+import { fighterService } from "./services/fightersService.ts";
+import { fight } from './fight.ts';
 
 class Setup {
   constructor() {

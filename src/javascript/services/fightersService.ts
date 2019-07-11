@@ -1,4 +1,4 @@
-import { callApi } from "../helpers/apiHelper";
+import { callApi } from "../helpers/apiHelper.ts";
 
 class FighterService {
   async getFighters() {
