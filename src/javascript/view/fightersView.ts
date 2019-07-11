@@ -1,10 +1,28 @@
-import View from "./view.ts";
-import FighterView from "./fighterView.ts";
-import { fighterService } from "../services/fightersService.ts";
-import Setup from "../setup.ts";
+import View from "./view";
+import FighterView from "./fighterView";
+import { fighterService } from "../services/fightersService";
+import Setup from "../setup";
+
+interface IFighter {
+  _id: number | string;
+  name: string;
+  source: string;
+}
+interface IFighters extends Array<IFighter> {}
+interface IDetails {
+  attack: number;
+  defense: number;
+  health: number;
+}
+
+type IModal = IFighter & IDetails;
 
 class FightersView extends View {
-  constructor(fighters) {
+  handleClick: (event: EventTarget, fighter: IFighter) => void;
+  handleCheckbox: (event: EventTarget, id: string | number) => void;
+  setup: Setup;
+
+  constructor(fighters: Array<IFighters>) {
     super();
 
     this.handleClick = this.handleFighterClick.bind(this);
@@ -12,14 +30,20 @@ class FightersView extends View {
     this.createFighters(fighters);
     this.setup = new Setup();
   }
-  static healthInput = document.getElementById("health-input");
-  static attackInput = document.getElementById("attack-input");
-  static defenseInput = document.getElementById("defense-input");
-  static button = document.getElementById("submit-btn");
+  static healthInput = document.getElementById(
+    "health-input"
+  ) as HTMLInputElement;
+  static attackInput = document.getElementById(
+    "attack-input"
+  ) as HTMLInputElement;
+  static defenseInput = document.getElementById(
+    "defense-input"
+  ) as HTMLInputElement;
+  static button = document.getElementById("submit-btn") as HTMLButtonElement;
 
   fightersDetailsMap = new Map();
 
-  createFighters(fighters) {
+  private createFighters(fighters: Array<IFighters>) {
     const fighterElements = fighters.map(fighter => {
       const fighterView = new FighterView(
         fighter,
@@ -27,7 +51,8 @@ class FightersView extends View {
         this.handleClick,
         this.handleCheckbox
       );
-      return fighterView.element;
+      const { element } = fighterView;
+      return element;
     });
 
     this.element = this.createElement({
@@ -37,21 +62,22 @@ class FightersView extends View {
     this.element.append(...fighterElements);
   }
 
-  handleFighterClick(event, fighter) {
+  private handleFighterClick(event: EventTarget, fighter: IFighter): void {
     const fighterDetails = this.setFighterDetails(fighter);
 
-    fighterDetails.then(details => {
+    fighterDetails.then((details: IModal) => {
+      console.log("yoy", details);
       this.setModal(details);
       this.setup.updateData(details);
     });
   }
 
-  handleFighterCheckbox(event, id) {
+  private handleFighterCheckbox(event: EventTarget, id: string | number): void {
     this.setup.updateFighters(event, id);
   }
 
-  async setFighterDetails(fighter) {
-    const id = fighter._id;
+  private async setFighterDetails(fighter: IFighter): Promise<T> {
+    const id: string | number = fighter._id;
 
     if (this.fightersDetailsMap.has(id)) {
       return this.fightersDetailsMap.get(id);
@@ -67,12 +93,12 @@ class FightersView extends View {
     }
   }
 
-  setModal(details) {
+  private setModal(details: IModal): void {
     const { _id, health, attack, defense } = details;
 
-    FightersView.healthInput.value = health;
-    FightersView.attackInput.value = attack;
-    FightersView.defenseInput.value = defense;
+    FightersView.healthInput.value = health.toString();
+    FightersView.attackInput.value = attack.toString();
+    FightersView.defenseInput.value = defense.toString();
 
     FightersView.button.onclick = () => {
       event.preventDefault();
@@ -80,15 +106,15 @@ class FightersView extends View {
     };
   }
 
-  handleChange(id) {
-    const update = {
-      health: FightersView.healthInput.value,
-      attack: FightersView.attackInput.value,
-      defense: FightersView.defenseInput.value
+  private handleChange(id: string | number): void {
+    const update: IDetails = {
+      health: parseInt(FightersView.healthInput.value),
+      attack: parseInt(FightersView.attackInput.value),
+      defense: parseInt(FightersView.defenseInput.value)
     };
 
     Object.keys(update).forEach(
-      key => (this.fightersDetailsMap.get(id)[key] = parseInt(update[key]))
+      key => (this.fightersDetailsMap.get(id)[key] = update[key])
     );
   }
 }
