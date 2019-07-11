@@ -1,7 +1,11 @@
-class View {
-  element;
+interface IView {
+  tagName: string;
+  className: string;
+  attributes: { [index: string]: string };
+}
 
- createElement({ tagName, className = "", attributes = {} }) {
+class View {
+  createElement({ tagName, className = "", attributes = {} }: IView) {
     const element = document.createElement(tagName);
     if (className) {
       className.split(" ").map(item => element.classList.add(item));

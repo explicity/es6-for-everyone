@@ -1,4 +1,4 @@
-import FightersView from "./view/fightersView.ts";
+import {FightersView} from "./view/fightersView.ts";
 import { fighterService } from "./services/fightersService.ts";
 
 class App {

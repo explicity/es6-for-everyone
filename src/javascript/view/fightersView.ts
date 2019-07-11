@@ -1,18 +1,12 @@
 import View from "./view";
-import FighterView from "./fighterView";
+import { FighterView, IFighter } from "./fighterView";
 import { fighterService } from "../services/fightersService";
 import Setup from "../setup";
 
-interface IFighter {
-  _id: number | string;
-  name: string;
-  source: string;
-}
 interface IFighters extends Array<IFighter> {}
+
 interface IDetails {
-  attack: number;
-  defense: number;
-  health: number;
+  [index: string]: number;
 }
 
 type IModal = IFighter & IDetails;
@@ -51,8 +45,7 @@ class FightersView extends View {
         this.handleClick,
         this.handleCheckbox
       );
-      const { element } = fighterView;
-      return element;
+      return fighterView.element;
     });
 
     this.element = this.createElement({
@@ -66,7 +59,6 @@ class FightersView extends View {
     const fighterDetails = this.setFighterDetails(fighter);
 
     fighterDetails.then((details: IModal) => {
-      console.log("yoy", details);
       this.setModal(details);
       this.setup.updateData(details);
     });
@@ -119,4 +111,4 @@ class FightersView extends View {
   }
 }
 
-export default FightersView;
+export { FightersView, IModal };

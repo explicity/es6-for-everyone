@@ -1,16 +1,8 @@
 import { callApi } from "../helpers/apiHelper";
+import { IFighter } from "../view/fighterView";
+import { IModal } from "../view/fightersView";
 
-interface IFighter {
-   _id: number | string; name: string; source: string;
-}
-interface IFighters extends Array<IFighter>{}
-interface IDetails {
-  attack: number,
-  defense: number,
-  health: number
-}
-
-type IModal = IFighter & IDetails; 
+interface IFighters extends Array<IFighter> {}
 
 class FighterService {
   public async getFighters(): Promise<IFighters> {

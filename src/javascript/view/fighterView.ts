@@ -1,13 +1,20 @@
-import View from "./view.ts";
+import View from "./view";
+
+interface IFighter {
+  _id: number | string;
+  name: string;
+  source: string;
+}
 
 class FighterView extends View {
-  constructor(fighter, isFighting = false, handleClick, handleCheckbox) {
+  constructor(fighter: IFighter, isFighting = false, handleClick, handleCheckbox) {
     super();
 
     this.createFighter(fighter, isFighting, handleClick, handleCheckbox);
   }
 
-  createFighter(fighter, isFighting, handleClick, handleCheckbox) {
+  createFighter(fighter: IFighter, isFighting, handleClick, handleCheckbox) {
+    console.log(fighter);
     const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
     const imageElement = this.createImage(source, isFighting);
@@ -97,4 +104,4 @@ class FighterView extends View {
   }
 }
 
-export default FighterView;
+export {FighterView, IFighter};
