@@ -16,8 +16,8 @@ class Setup {
     let fighters: Array<IModal> = [];
 
     for (let fighter of this.checked) {
-      console.log(this.allFighters.values());
-      for (let details of this.allFighters.values()) {
+      const allFighters: IterableIterator<IModal> = this.allFighters.values();
+      for (let details of allFighters) {
         const { _id } = details;
 
         if (fighter === _id) {
@@ -31,7 +31,8 @@ class Setup {
   public updateData(details: IModal): void {
     let temp;
 
-    for (let fighter of this.allFighters.values()) {
+    const allFighters: IterableIterator<IModal> = this.allFighters.values();
+    for (let fighter of allFighters) {
       if (details._id == fighter._id) {
         temp = fighter;
       }
