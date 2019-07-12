@@ -1,5 +1,5 @@
 import { fight } from './fight';
-import { IFighter } from './view/fighterView';
+import { IModal } from './view/fightersView';
 
 class Setup {
   allFighters: Set<object>;
@@ -12,11 +12,12 @@ class Setup {
 
   static button = document.getElementById("fight-btn") as HTMLButtonElement;
 
-  setupFight() {
-    let fighters: Array<IFighter> = [];
+  private setupFight(): void {
+    let fighters: Array<IModal> = [];
 
     for (let fighter of this.checked) {
-      for (let details of this.allFighters.values()) {
+      let details: IModal;
+      for (details of this.allFighters.values()) {
         const { _id } = details;
 
         if (fighter === _id) {
@@ -25,10 +26,11 @@ class Setup {
       }
     }
     console.log(fighters);
+
     fight(fighters);
   }
 
-  updateData(details: IFighter) {
+  public updateData(details: IModal): void {
     let temp;
 
     for (let fighter of this.allFighters.values()) {
@@ -43,7 +45,7 @@ class Setup {
     this.allFighters.add(details);
   }
 
-  updateFighters(event: any, id: string | number): void {
+  public updateFighters(event: any, id: string | number): void {
     event ? this.checked.add(id) : this.checked.delete(id);
 
     if (this.checked.size == 2) {

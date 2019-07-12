@@ -1,10 +1,12 @@
 import Fighter from "./fighter";
 import { FighterView } from "./view/fighterView";
+import { IModal } from './view/fightersView';
 import View from "./view/view";
 
 const fightElement = document.getElementById("fight-wrapper");
 
-function fight(fighters) {
+function fight(fighters: Array<IModal>) {
+  console.log(fighters);
   let firstFighter = new Fighter(fighters[0]);
   let secondFighter = new Fighter(fighters[1]);
 

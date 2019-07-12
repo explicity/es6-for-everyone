@@ -1,5 +1,31 @@
-class Fighter {
-  constructor({ _id, name, health, attack, defense }) {
+import { IModal } from './view/fightersView';
+
+interface IPlayer {
+  health: number,
+  attack: number,
+  defense: number,
+  id: string | number,
+  isAlive: boolean,
+  name: string
+
+  getBlockPower: () => number;
+  receiveDamage: (damage: number) => void;
+}
+
+interface IFighterClass extends IPlayer {
+  attackOpponent: (opponent: IPlayer) => void,
+  getHitPower: () => number,
+}
+
+class Fighter implements IFighterClass {
+  id: string | number;
+  name: string;
+  health: number;
+  attack: number;
+  defense: number;
+  isAlive: boolean;
+
+  constructor({ _id, name, health, attack, defense }: IModal) {
     this.id = _id;
     this.name = name;
     this.health = health;
@@ -8,12 +34,12 @@ class Fighter {
     this.isAlive = true;
   }
 
-  receiveDamage(damage) {
+  public receiveDamage(damage: number): void {
     this.health -= damage;
     this.checkIfAlive();
   }
 
-  attackOpponent(opponent) {
+  public attackOpponent(opponent: IPlayer): void {
     if (opponent.isAlive && this.isAlive) {
       const damageDone = this.getHitPower();
       const damageBlocked = opponent.getBlockPower();
@@ -24,22 +50,22 @@ class Fighter {
     }
   }
 
-  getHitPower() {
-    const criticalHitChance = Math.floor(Math.random() * 2) + 1;
-    const power = this.attack * criticalHitChance;
+  public getHitPower(): number {
+    const criticalHitChance: number = Math.floor(Math.random() * 2) + 1;
+    const power: number = this.attack * criticalHitChance;
 
     return power;
   }
 
-  getBlockPower() {
-    const criticalHitChance = Math.floor(Math.random() * 2) + 1;
-    const power = this.defense * criticalHitChance;
+  public getBlockPower(): number {
+    const criticalHitChance: number = Math.floor(Math.random() * 2) + 1;
+    const power: number = this.defense * criticalHitChance;
 
     return power;
   }
 
-  checkIfAlive() {
-    this.isAlive = this.health > 0 ? true : false;
+  private checkIfAlive(): void {
+    this.isAlive = this.health > 0;
   }
 }
 

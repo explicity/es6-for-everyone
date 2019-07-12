@@ -32,7 +32,6 @@ class FighterView extends View {
     handleClick: CallbackFunction,
     handleCheckbox: CallbackFunction
   ) {
-    console.log(handleCheckbox);
     const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
     const imageElement = this.createImage(source, isFighting);

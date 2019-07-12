@@ -15,11 +15,10 @@ class FightersView extends View {
   handleClick: (event: EventTarget, fighter: IFighter) => void;
   handleCheckbox: (event: EventTarget, id: string | number) => void;
   setup: Setup;
-  element: HTMLElement;
 
   constructor(fighters: IFighters) {
     super();
-    
+
     this.handleClick = this.handleFighterClick.bind(this);
     this.handleCheckbox = this.handleFighterCheckbox.bind(this);
     this.createFighters(fighters);
@@ -48,7 +47,6 @@ class FightersView extends View {
       );
       return fighterView.element;
     });
-    console.log(fighterElements);
 
     this.element = this.createElement({
       tagName: "div",
