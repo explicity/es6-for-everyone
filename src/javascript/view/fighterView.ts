@@ -13,24 +13,24 @@ interface IAttributes {
 }
 
 class FighterView extends View {
-  element: HTMLElement | undefined;
+  element!: HTMLElement;
 
   constructor(
     fighter: IFighter,
     isFighting: boolean = false,
-    handleClick: CallbackFunction,
-    handleCheckbox: CallbackFunction
+    handleClick?: CallbackFunction,
+    handleCheckbox?: CallbackFunction
   ) {
     super();
 
     this.createFighter(fighter, isFighting, handleClick, handleCheckbox);
   }
 
-  createFighter(
+  private createFighter(
     fighter: IFighter,
     isFighting: boolean,
-    handleClick: CallbackFunction,
-    handleCheckbox: CallbackFunction
+    handleClick?: CallbackFunction,
+    handleCheckbox?: CallbackFunction
   ) {
     const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
@@ -49,7 +49,7 @@ class FighterView extends View {
 
     this.element.append(imageElement, divElement);
 
-    if (!isFighting) {
+    if (!isFighting && handleCheckbox && handleClick) {
       const checkboxElement = this.createCheckbox(_id, handleCheckbox);
       this.element.append(checkboxElement);
       this.element.addEventListener(
@@ -60,7 +60,7 @@ class FighterView extends View {
     }
   }
 
-  createName(name: string) {
+  private createName(name: string) {
     const nameElement = this.createElement({
       tagName: "h5",
       className: "card-title name"
@@ -70,7 +70,7 @@ class FighterView extends View {
     return nameElement;
   }
 
-  createImage(source: string, isFighting: boolean) {
+  private createImage(source: string, isFighting: boolean) {
     let attributes: IAttributes = {
       src: source
     };
@@ -92,7 +92,7 @@ class FighterView extends View {
     return imgElement;
   }
 
-  createCheckbox(id: string | number, handleCheckbox: CallbackFunction) {
+  private createCheckbox(id: string | number, handleCheckbox: CallbackFunction) {
     const checkboxWrapper = this.createElement({
       tagName: "div",
       className: "form-check"

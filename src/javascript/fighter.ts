@@ -1,23 +1,20 @@
-import { IModal } from './view/fightersView';
+import { IModal } from "./view/fightersView";
 
 interface IPlayer {
-  health: number,
-  attack: number,
-  defense: number,
-  id: string | number,
-  isAlive: boolean,
-  name: string
+  health: number;
+  attack: number;
+  defense: number;
+  id: string | number;
+  isAlive: boolean;
+  name: string;
 
   getBlockPower: () => number;
   receiveDamage: (damage: number) => void;
+  attackOpponent: (opponent: IPlayer) => void;
+  getHitPower: () => number;
 }
 
-interface IFighterClass extends IPlayer {
-  attackOpponent: (opponent: IPlayer) => void,
-  getHitPower: () => number,
-}
-
-class Fighter implements IFighterClass {
+class Fighter implements IPlayer {
   id: string | number;
   name: string;
   health: number;
@@ -69,4 +66,4 @@ class Fighter implements IFighterClass {
   }
 }
 
-export default Fighter;
+export { Fighter, IPlayer };

@@ -16,8 +16,8 @@ class Setup {
     let fighters: Array<IModal> = [];
 
     for (let fighter of this.checked) {
-      let details: IModal;
-      for (details of this.allFighters.values()) {
+      console.log(this.allFighters.values());
+      for (let details of this.allFighters.values()) {
         const { _id } = details;
 
         if (fighter === _id) {
@@ -25,8 +25,6 @@ class Setup {
         }
       }
     }
-    console.log(fighters);
-
     fight(fighters);
   }
 

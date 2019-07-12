@@ -15,6 +15,7 @@ class FightersView extends View {
   handleClick: (event: EventTarget, fighter: IFighter) => void;
   handleCheckbox: (event: EventTarget, id: string | number) => void;
   setup: Setup;
+  element!: HTMLElement;
 
   constructor(fighters: IFighters) {
     super();
@@ -68,7 +69,7 @@ class FightersView extends View {
     this.setup.updateFighters(event, id);
   }
 
-  private async setFighterDetails(fighter: IFighter): Promise<T> {
+  private async setFighterDetails(fighter: IFighter): Promise<IModal> {
     const id: string | number = fighter._id;
 
     if (this.fightersDetailsMap.has(id)) {
