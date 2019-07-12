@@ -1,10 +1,12 @@
-import Fighter from "./fighter.js";
-import FighterView from "./view/fighterView.js";
-import View from "./view/view.js";
+import { Fighter, IPlayer } from "./fighter";
+import { FighterView } from "./view/fighterView";
+import { IModal } from "./view/fightersView";
+import View from "./view/view";
 
-const fightElement = document.getElementById("fight-wrapper");
+const fightElement = document.getElementById("fight-wrapper") as HTMLElement;
 
-export function fight(fighters) {
+function fight(fighters: Array<IModal>) {
+  console.log(fighters);
   let firstFighter = new Fighter(fighters[0]);
   let secondFighter = new Fighter(fighters[1]);
 
@@ -45,16 +47,18 @@ export function fight(fighters) {
 }
 
 class Commands {
-  static updateIndicator(fighter) {
-    let comment = `Health: ${fighter.health}`;
-    const label = document.getElementById(`fighter-${fighter.id}`);
+  static updateIndicator(fighter: IPlayer): void {
+    let comment: string = `Health: ${fighter.health}`;
+    const label = document.getElementById(
+      `fighter-${fighter.id}`
+    ) as HTMLElement;
     if (fighter.health <= 0) {
       comment = "Dead";
     }
     label.textContent = comment;
   }
 
-  static newTurn(attackingCharacter, attackedCharacter) {
+  static newTurn(attackingCharacter: IPlayer, attackedCharacter: IPlayer) {
     let view = new View();
 
     attackingCharacter.attackOpponent(attackedCharacter);
@@ -70,12 +74,14 @@ class Commands {
 
       const firstButton = document.getElementById(
         `button-${attackingCharacter.id}`
-      );
+      ) as HTMLButtonElement;
       const secondButton = document.getElementById(
         `button-${attackedCharacter.id}`
-      );
+      ) as HTMLButtonElement;
       firstButton.disabled = true;
       secondButton.disabled = true;
     }
   }
 }
+
+export { fight };

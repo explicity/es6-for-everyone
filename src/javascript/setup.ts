@@ -1,20 +1,23 @@
-import Fighter from "./fighter.js";
-import { fighterService } from "./services/fightersService";
-import { fight } from './fight.js';
+import { fight } from './fight';
+import { IModal } from './view/fightersView';
 
 class Setup {
+  allFighters: Set<object>;
+  checked: Set<string | number>;
+
   constructor() {
     this.allFighters = new Set();
     this.checked = new Set();
   }
 
-  static button = document.getElementById("fight-btn");
+  static button = document.getElementById("fight-btn") as HTMLButtonElement;
 
-  setupFight() {
-    let fighters = [];
+  private setupFight(): void {
+    let fighters: Array<IModal> = [];
 
     for (let fighter of this.checked) {
-      for (let details of this.allFighters.values()) {
+      const allFighters: IterableIterator<IModal> = this.allFighters.values();
+      for (let details of allFighters) {
         const { _id } = details;
 
         if (fighter === _id) {
@@ -22,14 +25,14 @@ class Setup {
         }
       }
     }
-
     fight(fighters);
   }
 
-  updateData(details) {
+  public updateData(details: IModal): void {
     let temp;
 
-    for (let fighter of this.allFighters.values()) {
+    const allFighters: IterableIterator<IModal> = this.allFighters.values();
+    for (let fighter of allFighters) {
       if (details._id == fighter._id) {
         temp = fighter;
       }
@@ -41,7 +44,7 @@ class Setup {
     this.allFighters.add(details);
   }
 
-  updateFighters(event, id) {
+  public updateFighters(event: any, id: string | number): void {
     event ? this.checked.add(id) : this.checked.delete(id);
 
     if (this.checked.size == 2) {
