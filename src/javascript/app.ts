@@ -1,16 +1,18 @@
-import {FightersView} from "./view/fightersView.ts";
-import { fighterService } from "./services/fightersService.ts";
+import { FightersView } from "./view/fightersView";
+import { fighterService } from "./services/fightersService";
 
 class App {
   constructor() {
     this.startApp();
   }
 
-  static rootElement = document.getElementById("root");
-  static loadingElement = document.getElementById("loading-overlay");
-  static mainElement = document.getElementById("main-content");
+  static rootElement = document.getElementById("root") as HTMLElement;
+  static loadingElement = document.getElementById(
+    "loading-overlay"
+  ) as HTMLElement;
+  static mainElement = document.getElementById("main-content") as HTMLElement;
 
-  async startApp() {
+  private async startApp() {
     try {
       App.loadingElement.style.visibility = "visible";
       App.mainElement.style.visibility = "hidden";

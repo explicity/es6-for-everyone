@@ -3,7 +3,7 @@ import { FighterView, IFighter } from "./fighterView";
 import { fighterService } from "../services/fightersService";
 import Setup from "../setup";
 
-interface IFighters extends Array<IFighter> {}
+interface IFighters extends Array<IFighter>{}
 
 interface IDetails {
   [index: string]: number;
@@ -15,10 +15,11 @@ class FightersView extends View {
   handleClick: (event: EventTarget, fighter: IFighter) => void;
   handleCheckbox: (event: EventTarget, id: string | number) => void;
   setup: Setup;
+  element: HTMLElement;
 
-  constructor(fighters: Array<IFighters>) {
+  constructor(fighters: IFighters) {
     super();
-
+    
     this.handleClick = this.handleFighterClick.bind(this);
     this.handleCheckbox = this.handleFighterCheckbox.bind(this);
     this.createFighters(fighters);
@@ -37,8 +38,8 @@ class FightersView extends View {
 
   fightersDetailsMap = new Map();
 
-  private createFighters(fighters: Array<IFighters>) {
-    const fighterElements = fighters.map(fighter => {
+  private createFighters(fighters: IFighters) {
+    const fighterElements: Array<HTMLElement> = fighters.map((fighter: IFighter) => {
       const fighterView = new FighterView(
         fighter,
         false,
@@ -47,6 +48,7 @@ class FightersView extends View {
       );
       return fighterView.element;
     });
+    console.log(fighterElements);
 
     this.element = this.createElement({
       tagName: "div",
@@ -55,7 +57,7 @@ class FightersView extends View {
     this.element.append(...fighterElements);
   }
 
-  private handleFighterClick(event: EventTarget, fighter: IFighter): void {
+  private handleFighterClick(_event: EventTarget, fighter: IFighter): void {
     const fighterDetails = this.setFighterDetails(fighter);
 
     fighterDetails.then((details: IModal) => {
@@ -92,7 +94,7 @@ class FightersView extends View {
     FightersView.attackInput.value = attack.toString();
     FightersView.defenseInput.value = defense.toString();
 
-    FightersView.button.onclick = () => {
+    FightersView.button.onclick = (event) => {
       event.preventDefault();
       this.handleChange(_id);
     };

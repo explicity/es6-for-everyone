@@ -1,20 +1,38 @@
 import View from "./view";
 
+type CallbackFunction = (...args: any[]) => void;
+
 interface IFighter {
   _id: number | string;
   name: string;
   source: string;
 }
 
+interface IAttributes {
+  [index: string]: string;
+}
+
 class FighterView extends View {
-  constructor(fighter: IFighter, isFighting = false, handleClick, handleCheckbox) {
+  element: HTMLElement | undefined;
+
+  constructor(
+    fighter: IFighter,
+    isFighting: boolean = false,
+    handleClick: CallbackFunction,
+    handleCheckbox: CallbackFunction
+  ) {
     super();
 
     this.createFighter(fighter, isFighting, handleClick, handleCheckbox);
   }
 
-  createFighter(fighter: IFighter, isFighting, handleClick, handleCheckbox) {
-    console.log(fighter);
+  createFighter(
+    fighter: IFighter,
+    isFighting: boolean,
+    handleClick: CallbackFunction,
+    handleCheckbox: CallbackFunction
+  ) {
+    console.log(handleCheckbox);
     const { name, source, _id } = fighter;
     const nameElement = this.createName(name);
     const imageElement = this.createImage(source, isFighting);
@@ -43,7 +61,7 @@ class FighterView extends View {
     }
   }
 
-  createName(name) {
+  createName(name: string) {
     const nameElement = this.createElement({
       tagName: "h5",
       className: "card-title name"
@@ -53,8 +71,8 @@ class FighterView extends View {
     return nameElement;
   }
 
-  createImage(source, isFighting) {
-    let attributes = {
+  createImage(source: string, isFighting: boolean) {
+    let attributes: IAttributes = {
       src: source
     };
 
@@ -75,7 +93,7 @@ class FighterView extends View {
     return imgElement;
   }
 
-  createCheckbox(id, handleCheckbox) {
+  createCheckbox(id: string | number, handleCheckbox: CallbackFunction) {
     const checkboxWrapper = this.createElement({
       tagName: "div",
       className: "form-check"
@@ -93,9 +111,10 @@ class FighterView extends View {
       attributes: { for: `checkbox-${id}` }
     });
 
-    checkboxElement.addEventListener("change", e =>
-      handleCheckbox(e.target.checked, id)
-    );
+    checkboxElement.addEventListener("change", e => {
+      const target = e.target as HTMLInputElement;
+      handleCheckbox(target.checked, id);
+    });
 
     checkboxLabel.innerText = "Choose me!";
     checkboxWrapper.append(checkboxElement, checkboxLabel);
@@ -104,4 +123,4 @@ class FighterView extends View {
   }
 }
 
-export {FighterView, IFighter};
+export { FighterView, IFighter };

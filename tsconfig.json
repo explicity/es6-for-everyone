@@ -5,6 +5,8 @@
     "allowJs": true,
     "checkJs": true,
     "sourceMap": true,
+    "outDir": "/",
+    "downlevelIteration": true,
 
     "strict": true,
     "noImplicitAny": true,
@@ -17,5 +19,5 @@
     "noImplicitReturns": true,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

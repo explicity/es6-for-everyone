@@ -1,10 +1,10 @@
-import Fighter from "./fighter.ts";
-import FighterView from "./view/fighterView.ts";
-import View from "./view/view.ts";
+import Fighter from "./fighter";
+import { FighterView } from "./view/fighterView";
+import View from "./view/view";
 
 const fightElement = document.getElementById("fight-wrapper");
 
-export function fight(fighters) {
+function fight(fighters) {
   let firstFighter = new Fighter(fighters[0]);
   let secondFighter = new Fighter(fighters[1]);
 
@@ -79,3 +79,5 @@ class Commands {
     }
   }
 }
+
+export  {fight};

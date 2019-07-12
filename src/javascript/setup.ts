@@ -1,17 +1,19 @@
-import Fighter from "./fighter.ts";
-import { fighterService } from "./services/fightersService.ts";
-import { fight } from './fight.ts';
+import { fight } from './fight';
+import { IFighter } from './view/fighterView';
 
 class Setup {
+  allFighters: Set<object>;
+  checked: Set<string | number>;
+
   constructor() {
     this.allFighters = new Set();
     this.checked = new Set();
   }
 
-  static button = document.getElementById("fight-btn");
+  static button = document.getElementById("fight-btn") as HTMLButtonElement;
 
   setupFight() {
-    let fighters = [];
+    let fighters: Array<IFighter> = [];
 
     for (let fighter of this.checked) {
       for (let details of this.allFighters.values()) {
@@ -22,11 +24,11 @@ class Setup {
         }
       }
     }
-
+    console.log(fighters);
     fight(fighters);
   }
 
-  updateData(details) {
+  updateData(details: IFighter) {
     let temp;
 
     for (let fighter of this.allFighters.values()) {
@@ -41,7 +43,7 @@ class Setup {
     this.allFighters.add(details);
   }
 
-  updateFighters(event, id) {
+  updateFighters(event: any, id: string | number): void {
     event ? this.checked.add(id) : this.checked.delete(id);
 
     if (this.checked.size == 2) {
